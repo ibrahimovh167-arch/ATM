@@ -10,7 +10,11 @@ class ATM:
         self.pin = "7707"
         self.balance = 5000
 
+        self.loginScreen()
+
     def loginScreen(self):
+        self.clearScreen()
+
         Label(self.window,
               text="ATM",
               font=("Arial", 25, "bold")
@@ -33,6 +37,8 @@ class ATM:
             messagebox.showwarning("Warning", "PIN is wrong, try again.")
 
     def mainScreen(self):
+        self.clearScreen()
+
         Label(self.window, 
               text="ATM MENU",
               font=("Arial", 25, "bold")
@@ -47,29 +53,29 @@ class ATM:
         Button(self.window,
                text="Withdraw",
                width=20,
-               command=None
+               command=self.withdraw
                ).pack(pady=5)
         
         Button(self.window,
                text="Deposit",
                width=20,
-               command=None
+               command=self.deposit
                ).pack(pady=5)
         
         Button(self.window,
                text="Exit",
                width=20,
-               command=None
+               command=self.window.destroy
                ).pack(pady=20)
         
     def showBalance(self):
         messagebox.showinfo("Info", f"Balance: {self.balance} AZN")
 
     def withdraw(self):
-        pass
+        amount = self.getAmount()
 
     def deposit(self):
-        pass
+        amount = self.getAmount()
 
     def getAmount(self):
         window = Toplevel(self.window)
@@ -106,4 +112,9 @@ class ATM:
         return None
     
     def clearScreen(self):
-        pass
+        for widget in self.window.winfo_children():
+            widget.destroy()
+
+window = Tk()
+app = ATM(window)
+window.mainloop()
