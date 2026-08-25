@@ -74,8 +74,23 @@ class ATM:
     def withdraw(self):
         amount = self.getAmount()
 
+        if amount is None:
+            return
+        
+        if amount > self.balance:
+            messagebox.showwarning("Warning", "Balance is not enough.")
+        else:
+            self.balance -= amount
+            messagebox.showinfo("Info", f"Remain balance: {self.balance}")
+
     def deposit(self):
         amount = self.getAmount()
+
+        if amount is None:
+            return
+        
+        self.balance += amount
+        messagebox.showinfo("Info", f"New balance: {self.balance}")
 
     def getAmount(self):
         window = Toplevel(self.window)
