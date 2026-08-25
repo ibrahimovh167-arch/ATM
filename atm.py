@@ -67,3 +67,43 @@ class ATM:
 
     def withdraw(self):
         pass
+
+    def deposit(self):
+        pass
+
+    def getAmount(self):
+        window = Toplevel(self.window)
+        window.title("Operation")
+        window.geometry("250x250")
+
+        Label(window, text="Enter amount:").pack(pady=10)
+
+        entry = Entry(window)
+        entry.pack()
+
+        result = []
+
+        def confirmOperation():
+            try:
+                amount = float(entry.get())
+
+                if amount <= 0:
+                    raise ValueError
+                
+                result.append(amount)
+                window.destroy()
+            except ValueError:
+                messagebox.showerror("Error", "Enter true amount.")
+
+        Button(window, text="OK", command=confirmOperation).pack(pady=10)
+
+        window.grab_set()
+        self.window.wait_window(window)
+
+        if result:
+            return result[0]
+        
+        return None
+    
+    def clearScreen(self):
+        pass
